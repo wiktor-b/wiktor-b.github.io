@@ -63,7 +63,7 @@ export const work = [
     period: "02.2024 - 02.2025",
     company: "Comarch",
     role: "Full Stack Developer",
-    tech: "Angular, TypeScript, Java (Spring), Node.js, Docker, AWS, Less",
+    tech: "Angular, TypeScript, Java (Spring), Node.js, Docker, AWS, Less, CI/CD",
     bullets: [
       "Developed and maintained high-traffic Angular application for major insurance companies",
       "Identified and resolved production bugs ensuring application stability under real-time conditions",
@@ -83,7 +83,7 @@ export const work = [
     period: "07.2021 - 02.2024",
     company: "LSI Software",
     role: "Software Developer",
-    tech: "JavaScript, Python, Jenkins, SQL, TestComplete, Postman, RabbitMQ",
+    tech: "JavaScript, Python, Jenkins, SQL, TestComplete, Postman, Jest, RabbitMQ",
     bullets: [
       "Developed automated test scripts for software quality assurance",
       "Analyzed and debugged software issues, maintained testing documentation",
