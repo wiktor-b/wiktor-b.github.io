@@ -8,8 +8,12 @@ interface Props {
 const { school, degree, period } = Astro.props;
 ---
 
-<article class="space-y-1 avoid-break">
-  <h3 class="font-semibold text-lg">{school}</h3>
-  <div class="text-sm">{degree}</div>
-  <div class="text-sm text-neutral-600">{period}</div>
+<article class="flex gap-3 avoid-break">
+  <div class="w-20 shrink-0">
+    <div class="text-[11px] text-slate-500 font-medium leading-tight">{period}</div>
+  </div>
+  <div class="flex-1">
+    <h3 class="font-bold text-slate-900 text-sm">{school}</h3>
+    <div class="text-xs text-slate-600">{degree}</div>
+  </div>
 </article>

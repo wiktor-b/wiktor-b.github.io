@@ -8,49 +8,57 @@ import { profile, sidebarSections, work } from "../config/config";
 ---
 
 <BaseLayout>
-  <main
-    class="flex justify-center gap-2 items-center h-20 screen-only text-center"
-  >
-    <button
-      class="px-4 py-2 border border-neutral-300 hover:border-accent transition rounded"
-      onclick="window.location.href = '/'"
-    >
-      Go back
-    </button>
-    <button
-      onclick="window.print()"
-      class="px-4 py-2 bg-accent text-white rounded">Print / Save as PDF</button
-    >
-  </main>
+  <!-- Print controls -->
+  <div class="screen-only bg-slate-100 border-b border-slate-200">
+    <div class="mx-auto max-w-[210mm] py-4 px-6 flex justify-between items-center">
+      <button
+        class="btn-secondary inline-flex items-center gap-2 text-sm"
+        onclick="window.location.href = '/'"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Back to Portfolio
+      </button>
+      <button
+        onclick="window.print()"
+        class="btn-primary inline-flex items-center gap-2 text-sm"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+        </svg>
+        Print / Save as PDF
+      </button>
+    </div>
+  </div>
 
-  <div class="mx-auto w-[210mm] bg-white shadow-xl print:shadow-none">
-    <!-- Fix for sidebar full height of last page for print -->
-    <div class="hidden print:block print-bg-sidebar" aria-hidden="true"></div>
-    <div class="grid grid-cols-[280px_1fr] relative z-10">
+  <div class="py-8 screen-only"></div>
+
+  <div class="mx-auto w-[210mm] min-h-[297mm] bg-white shadow-2xl print:shadow-none print:w-full print:max-w-none print:m-0 rounded-lg overflow-hidden screen-only:border screen-only:border-slate-200">
+    <div class="grid grid-cols-[220px_1fr] min-h-[297mm]">
       <Sidebar
         sections={sidebarSections}
         avatarUrl={profile.avatarUrl}
         phone={profile.phone}
         email={profile.email}
         linkedin={profile.linkedin}
+        github={profile.github}
         location={profile.location}
       />
-      <div class="flex flex-col repeat-offset">
-        <header class="px-8 pt-8 pb-4 border-b border-neutral-300 avoid-break">
-          <h1 class="font-heading text-4xl tracking-wider font-extrabold">
+      <div class="flex flex-col">
+        <header class="px-6 pt-5 pb-3 border-b border-slate-200 avoid-break">
+          <h1 class="font-heading text-2xl tracking-wide font-extrabold text-slate-900">
             {profile.name.toUpperCase()}
           </h1>
-          <div class="text-neutral-700 mt-1">
+          <div class="text-accent font-semibold text-sm mt-1">
             {profile.role}
           </div>
-          <p
-            class="text-sm text-neutral-700 mt-3 text-justify leading-relaxed max-w-3xl"
-          >
+          <p class="text-xs text-slate-600 mt-2 leading-relaxed max-w-3xl">
             {profile.summary}
           </p>
         </header>
 
-        <div class="p-8 space-y-6">
+        <div class="p-6 pt-4 space-y-4 flex-1 flex flex-col">
           <Section title="Work Experience" icon="briefcase">
             {work.map((w) => <ExperienceItem {...w} />)}
           </Section>
@@ -63,7 +71,9 @@ import { profile, sidebarSections, work } from "../config/config";
             />
           </Section>
 
-          <footer class="text-[10px] text-neutral-500 text-justify avoid-break">
+          <div class="flex-1"></div>
+
+          <footer class="text-[7px] text-slate-400 leading-tight avoid-break pt-2 border-t border-slate-100">
             I agree to the processing of personal data provided in this document
             for realising the recruitment process pursuant to the Personal Data
             Protection Act of 10 May 2018 (Journal of Laws 2018, Item 1000) and
@@ -77,5 +87,5 @@ import { profile, sidebarSections, work } from "../config/config";
       </div>
     </div>
   </div>
-  <footer class="h-20"></footer>
+  <div class="h-16 screen-only"></div>
 </BaseLayout>

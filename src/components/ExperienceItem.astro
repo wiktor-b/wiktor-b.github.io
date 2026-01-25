@@ -9,33 +9,35 @@ interface Props {
 
 const { period, company, role, tech, bullets } = Astro.props;
 
-const [start, end, duration] = period.split(" ");
+const periodParts = period.split(" - ");
+const start = periodParts[0] || "";
+const end = periodParts[1] || "";
+const isCurrent = end.toUpperCase() === "PRESENT";
 ---
 
-<article class="flex gap-4 py-2 avoid-break print:break-inside-avoid">
-  <div class="text-sm text-neutral-600 font-medium mt-0.5 text-center">
-    {start}
-    <br />
-    <span class="text-center">{end}</span>
-    <br />
-    {duration && <span class="text-sm text-neutral-600 font-medium">{duration}</span>}
+<article class="flex gap-3 py-2 avoid-break print:break-inside-avoid border-b border-slate-100 last:border-b-0">
+  <div class="w-20 shrink-0 text-[11px] text-slate-500 font-medium pt-0.5 leading-tight text-center">
+    <div>{start}</div>
+    <div class="text-slate-400">—</div>
+    <div class={isCurrent ? "text-accent font-semibold" : ""}>{end}</div>
   </div>
-  <div class="space-y-1">
-    <div class="flex justify-between gap-4">
-      <h3 class="font-semibold text-lg whitespace-nowrap">{company}</h3>
-      {
-        tech && (
-          <div class="flex flex-col gap-2 text-xs text-neutral-600">
-            {tech.split("<br>").map((t) => (
-              <span>{t}</span>
-            ))}
-          </div>
-        )
-      }
+  <div class="flex-1 space-y-1">
+    <div class="flex flex-col">
+      <h3 class="font-bold text-slate-900 text-sm">{company}</h3>
+      {role && <div class="text-xs font-medium text-slate-600">{role}</div>}
     </div>
-    {role && <div class="text-md font-semibold text-neutral-700">{role}</div>}
-    <ul class="list-disc pl-5 space-y-1 text-sm">
-      {bullets.map((b) => <li class="avoid-break">{b}</li>)}
+    {
+      tech && (
+        <div class="text-[10px] text-slate-500">{tech}</div>
+      )
+    }
+    <ul class="space-y-1 text-xs text-slate-600 leading-snug">
+      {bullets.map((b) => (
+        <li class="flex items-start gap-1.5 avoid-break">
+          <span class="text-accent mt-0.5">•</span>
+          <span>{b}</span>
+        </li>
+      ))}
     </ul>
   </div>
 </article>

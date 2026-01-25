@@ -1,38 +1,47 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Section from "../components/Section.astro";
 import { profile, sidebarSections, work } from "../config/config";
 
 const techStack =
-  sidebarSections.find((s) => s.title === "Tech stack")?.items ?? [];
+  sidebarSections.find((s) => s.title === "Technologies")?.items ?? [];
 const softSkills =
   sidebarSections.find((s) => s.title === "Soft skills")?.items ?? [];
 const languages =
   sidebarSections.find((s) => s.title === "Languages")?.items ?? [];
+
+// Featured/recent experiences
+const featuredWork = work.slice(0, 3);
 ---
 
 <BaseLayout title={`${profile.name} - Portfolio`}>
-  <header
-    class="border-b border-neutral-200 bg-white/80 backdrop-blur sticky top-0 z-50"
-  >
-    <div class="mx-auto max-w-6xl px-6 py-3 flex items-center justify-between">
-      <div></div>
-      <nav class="flex items-center gap-4 text-sm">
+  <!-- Header -->
+  <header class="glass-strong border-b border-slate-200/60 sticky top-0 z-50">
+    <div class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
+      <a href="/" class="font-heading font-bold text-lg text-gradient">
+        WB
+      </a>
+      <nav class="flex items-center gap-2">
         <a
-          href="/cv"
-          class="px-3 py-1.5 rounded border border-neutral-300 hover:border-accent transition"
+          href="#experience"
+          class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-accent transition-colors rounded-lg hover:bg-slate-100"
         >
-          CV
+          Experience
         </a>
         <a
-          href={profile.linkedin}
-          target="_blank"
-          rel="noreferrer"
-          class="px-3 py-1.5 rounded hover:text-accent transition">LinkedIn</a
+          href="#skills"
+          class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-accent transition-colors rounded-lg hover:bg-slate-100"
         >
+          Skills
+        </a>
+        <a
+          href="/cv"
+          class="px-4 py-2 text-sm font-medium border border-slate-200 rounded-lg hover:border-accent hover:text-accent transition-all"
+        >
+          View CV
+        </a>
         <a
           href={`mailto:${profile.email}`}
-          class="px-3 py-1.5 rounded bg-accent text-white hover:brightness-95 transition"
+          class="px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent-dark transition-all shadow-soft hover:shadow-glow"
         >
           Contact
         </a>
@@ -41,194 +50,341 @@ const languages =
   </header>
 
   <main>
-    <!-- Hero -->
-    <section class="bg-gradient-to-b from-white to-neutral-100">
-      <div
-        class="mx-auto max-w-6xl px-6 py-16 grid md:grid-cols-[220px_1fr] gap-8 items-center"
-      >
-        <div class="flex justify-center md:justify-start">
-          <img
-            src={profile.avatarUrl}
-            srcset={`${profile.avatarUrl} 2x`}
-            width="176"
-            height="176"
-            decoding="async"
-            fetchpriority="high"
-            alt={profile.name}
-            class="w-44 h-44 rounded-full object-cover ring-4 ring-accent/60 shadow-md [image-rendering:auto]"
-          />
-        </div>
-        <div>
-          <h1
-            class="font-heading text-4xl md:text-5xl font-extrabold tracking-wider"
-          >
-            {profile.name.toUpperCase()}
-          </h1>
-          <p class="text-neutral-700 mt-2 text-lg">
-            {profile.role}
-          </p>
-          <p class="text-neutral-700 mt-4 max-w-3xl leading-relaxed">
-            {profile.summary}
-          </p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a
-              href="/cv"
-              class="px-5 py-2.5 bg-accent text-white rounded shadow hover:brightness-95 transition"
-            >
-              View CV
-            </a>
-            <a
-              href="#experience"
-              class="px-5 py-2.5 border border-neutral-300 rounded hover:border-accent transition"
-            >
-              Experience
-            </a>
-            <a
-              href={`mailto:${profile.email}`}
-              class="px-5 py-2.5 rounded bg-neutral-900 text-white hover:bg-neutral-800 transition"
-            >
-              Get in touch
-            </a>
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
+      <!-- Decorative elements -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-accent/5 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div class="relative mx-auto max-w-6xl px-6 py-20 md:py-28">
+        <div class="grid md:grid-cols-[1fr_280px] gap-12 items-center">
+          <div class="order-2 md:order-1 animate-fade-in">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+              <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              Available for opportunities
+            </div>
+            
+            <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
+              Hi, I'm <span class="text-gradient">{profile.name.split(" ")[0]}</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-slate-600 mt-4 font-medium">
+              {profile.role}
+            </p>
+            
+            <p class="text-slate-600 mt-6 max-w-2xl leading-relaxed text-lg">
+              {profile.summary}
+            </p>
+            
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a href="/cv" class="btn-primary inline-flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                Download CV
+              </a>
+              <a href="#experience" class="btn-secondary inline-flex items-center gap-2">
+                View Experience
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </a>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                class="p-3 border border-slate-200 rounded-xl hover:border-accent hover:text-accent transition-all"
+                aria-label="LinkedIn Profile"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noreferrer"
+                class="p-3 border border-slate-200 rounded-xl hover:border-accent hover:text-accent transition-all"
+                aria-label="GitHub Profile"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <div class="order-1 md:order-2 flex justify-center animate-fade-in">
+            <div class="relative">
+              <div class="absolute inset-0 bg-accent-gradient rounded-full blur-2xl opacity-20 animate-float"></div>
+              <img
+                src={profile.avatarUrl}
+                srcset={`${profile.avatarUrl} 2x`}
+                width="240"
+                height="240"
+                decoding="async"
+                fetchpriority="high"
+                alt={profile.name}
+                class="relative w-56 h-56 md:w-64 md:h-64 rounded-full object-cover ring-4 ring-white shadow-2xl"
+              />
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skills -->
-    <section class="mx-auto max-w-6xl px-6 py-12">
-      <Section title="Skills" icon="learning">
-        <div class="grid md:grid-cols-3 gap-8 mt-2">
-          <div
-            class="p-5 rounded-lg border border-neutral-200 bg-white shadow-sm"
-          >
-            <h3 class="font-semibold mb-3">Tech stack</h3>
-            <div class="flex flex-wrap gap-2">
-              {
-                techStack.map((t) => (
-                  <span class="px-2.5 py-1 text-xs rounded-full bg-neutral-100 border border-neutral-200">
-                    {t}
-                  </span>
-                ))
-              }
-            </div>
-          </div>
-          <div
-            class="p-5 rounded-lg border border-neutral-200 bg-white shadow-sm"
-          >
-            <h3 class="font-semibold mb-3">Soft skills</h3>
-            <ul class="list-disc pl-5 text-sm space-y-1">
-              {softSkills.map((s) => <li>{s}</li>)}
-            </ul>
-          </div>
-          <div
-            class="p-5 rounded-lg border border-neutral-200 bg-white shadow-sm"
-          >
-            <h3 class="font-semibold mb-3">Languages</h3>
-            <ul class="list-disc pl-5 text-sm space-y-1">
-              {languages.map((l) => <li>{l}</li>)}
-            </ul>
-          </div>
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-white">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="text-center mb-12">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900">
+            Work Experience
+          </h2>
+          <p class="text-slate-600 mt-3 max-w-2xl mx-auto">
+            Building enterprise solutions for global brands
+          </p>
         </div>
-      </Section>
-    </section>
-
-    <!-- Experience highlights -->
-    <section id="experience" class="mx-auto max-w-6xl px-6 py-8">
-      <Section title="Experience" icon="briefcase">
-        <div class="grid md:grid-cols-3 gap-6 mt-2">
-          {
-            work.map((w) => (
-              <article class="p-5 rounded-lg border border-neutral-200 bg-white shadow-sm flex flex-col gap-1.5">
-                <div class="text-sm text-neutral-600">{w.period}</div>
-                <div class="text-lg font-semibold text-neutral-700">
-                  {w.role || w.company}
+        
+        <div class="space-y-6">
+          {featuredWork.map((w, i) => (
+            <article 
+              class="card-modern p-6 md:p-8 group"
+              style={`animation-delay: ${i * 100}ms`}
+            >
+              <div class="flex flex-col md:flex-row md:items-start gap-6">
+                <div class="md:w-40 shrink-0">
+                  <div class="text-sm font-semibold text-accent">{w.period}</div>
+                  {w.period.includes("PRESENT") && (
+                    <span class="inline-flex items-center gap-1.5 mt-2 px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">
+                      <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                      Current
+                    </span>
+                  )}
                 </div>
-                <h3 class="text-md">{w.role && w.company}</h3>
-                {w.tech && (
-                  <div class="text-xs text-neutral-600">
-                    {w.tech.split("<br>").map((t) => (
-                      <div>{t}</div>
+                
+                <div class="flex-1 space-y-4">
+                  <div>
+                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-accent transition-colors">
+                      {w.role}
+                    </h3>
+                    <p class="text-slate-600 font-medium mt-1">{w.company}</p>
+                  </div>
+                  
+                  <div class="flex flex-wrap gap-2">
+                    {w.tech.split(", ").map((t) => (
+                      <span class="tag">{t}</span>
                     ))}
                   </div>
-                )}
-                <ul class="list-disc pl-5 text-sm space-y-1">
-                  {w.bullets.slice(0, 2).map((b) => (
-                    <li>{b}</li>
-                  ))}
-                </ul>
-                <div class="pt-3 border-t border-neutral-200 mt-auto">
-                  <a href="/cv" class="text-sm text-accent underline">
-                    See CV →
-                  </a>
+                  
+                  <ul class="space-y-2">
+                    {w.bullets.map((b) => (
+                      <li class="flex items-start gap-3 text-slate-600">
+                        <svg class="w-5 h-5 text-accent shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </article>
-            ))
-          }
+              </div>
+            </article>
+          ))}
         </div>
-      </Section>
+        
+        <div class="text-center mt-10">
+          <a href="/cv" class="btn-secondary inline-flex items-center gap-2">
+            View Full CV
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <!-- Contact -->
-    <section class="mx-auto max-w-6xl px-6 py-12">
-      <Section title="Contact" icon="new-post">
-        <div class="grid md:grid-cols-3 gap-6 mt-2">
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gradient-to-b from-slate-50 to-white">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="text-center mb-12">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900">
+            Skills & Expertise
+          </h2>
+          <p class="text-slate-600 mt-3 max-w-2xl mx-auto">
+            Technologies and competencies I bring to every project
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Tech Stack -->
+          <div class="card-modern p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
+              </div>
+              <h3 class="font-bold text-lg text-slate-900">Technologies</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              {techStack.map((t) => (
+                <span class="tag-accent">{t}</span>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Soft Skills -->
+          <div class="card-modern p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+              </div>
+              <h3 class="font-bold text-lg text-slate-900">Soft Skills</h3>
+            </div>
+            <ul class="space-y-2.5">
+              {softSkills.map((s) => (
+                <li class="flex items-center gap-2.5 text-slate-600">
+                  <svg class="w-4 h-4 text-purple-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-sm">{s}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          <!-- Languages -->
+          <div class="card-modern p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                </svg>
+              </div>
+              <h3 class="font-bold text-lg text-slate-900">Languages</h3>
+            </div>
+            <ul class="space-y-3">
+              {languages.map((l) => {
+                const [lang, level] = l.split(" (");
+                const cleanLevel = level?.replace(")", "") || "";
+                return (
+                  <li class="flex items-center justify-between">
+                    <span class="font-medium text-slate-900">{lang}</span>
+                    <span class="text-sm text-slate-500">{cleanLevel}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="text-center mb-12">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900">
+            Let's Connect
+          </h2>
+          <p class="text-slate-600 mt-3 max-w-2xl mx-auto">
+            Interested in working together? Let's talk.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           <a
             href={`mailto:${profile.email}`}
-            class="p-5 rounded-lg border border-neutral-200 bg-white shadow-sm flex items-center gap-3 hover:border-accent transition"
+            class="card-modern p-6 flex items-center gap-4 group"
           >
-            <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/sf-regular-filled/48/new-post.png"
-              alt="email"
-            />
+            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors">
+              <svg class="w-6 h-6 text-accent group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
             <div>
-              <div class="text-sm text-neutral-600">Email</div>
-              <div class="font-medium">{profile.email}</div>
+              <div class="text-sm text-slate-500">Email</div>
+              <div class="font-medium text-slate-900 group-hover:text-accent transition-colors">{profile.email}</div>
             </div>
           </a>
+          
           <a
             href={profile.linkedin}
             target="_blank"
             rel="noreferrer"
-            class="p-5 rounded-lg border border-neutral-200 bg-white shadow-sm flex items-center gap-3 hover:border-accent transition"
+            class="card-modern p-6 flex items-center gap-4 group"
           >
-            <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/sf-regular-filled/48/linkedin.png"
-              alt="linkedin"
-            />
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
+              <svg class="w-6 h-6 text-blue-500 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </div>
             <div>
-              <div class="text-sm text-neutral-600">LinkedIn</div>
-              <div class="font-medium break-all">{profile.linkedin}</div>
+              <div class="text-sm text-slate-500">LinkedIn</div>
+              <div class="font-medium text-slate-900 group-hover:text-blue-500 transition-colors">Connect with me</div>
             </div>
           </a>
-          <div
-            class="p-5 rounded-lg border border-neutral-200 bg-white shadow-sm flex items-center gap-3"
-          >
-            <img
-              width="24"
-              height="24"
-              src="https://img.icons8.com/sf-regular-filled/48/address.png"
-              alt="address"
-            />
+          
+          <div class="card-modern p-6 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+              <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
             <div>
-              <div class="text-sm text-neutral-600">Location</div>
-              <div class="font-medium">{profile.location}</div>
+              <div class="text-sm text-slate-500">Location</div>
+              <div class="font-medium text-slate-900">{profile.location}</div>
             </div>
           </div>
         </div>
-      </Section>
+      </div>
     </section>
   </main>
 
-  <footer
-    class="py-8 border-t border-neutral-200 text-center text-sm text-neutral-600"
-  >
-    <div class="mx-auto max-w-6xl px-6">
-      © {new Date().getFullYear()}
-      {profile.name}. Built with Astro + Tailwind.
+  <!-- Footer -->
+  <footer class="py-8 border-t border-slate-200 bg-slate-50">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-slate-500">
+        &copy; {new Date().getFullYear()} {profile.name}. Built with Astro + Tailwind.
+      </div>
+      <div class="flex items-center gap-4">
+        <a
+          href={profile.linkedin}
+          target="_blank"
+          rel="noreferrer"
+          class="text-slate-400 hover:text-accent transition-colors"
+          aria-label="LinkedIn"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a
+          href={profile.github}
+          target="_blank"
+          rel="noreferrer"
+          class="text-slate-400 hover:text-accent transition-colors"
+          aria-label="GitHub"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+        <a
+          href={`mailto:${profile.email}`}
+          class="text-slate-400 hover:text-accent transition-colors"
+          aria-label="Email"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+        </a>
+      </div>
     </div>
   </footer>
 </BaseLayout>

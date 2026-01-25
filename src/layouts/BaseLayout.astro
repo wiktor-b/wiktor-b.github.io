@@ -15,6 +15,7 @@ const { title = `${profile.name} - CV` } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
     <meta name="print-color-adjust" content="exact" />
+    <meta name="description" content={`${profile.name} - ${profile.role}. ${profile.summary.slice(0, 150)}...`} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,14 +31,13 @@ const { title = `${profile.name} - CV` } = Astro.props;
         font-family: Arial, Helvetica, sans-serif !important; 
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-        color: black !important;
         text-shadow: none !important;
         filter: none !important;
         -ms-filter: none !important;
       }
     </style>
   </head>
-  <body class="bg-neutral-100 text-neutral-900 print:bg-white font-body">
+  <body class="bg-slate-100 text-slate-900 print:bg-white print:m-0 print:p-0 font-body antialiased">
     <slot />
   </body>
 </html>

@@ -2,20 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Page sizing for PDF export */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  ::selection {
+    background-color: rgba(99, 102, 241, 0.2);
+    color: #4f46e5;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .border-gradient {
+    border: 1px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, #6366f1, #8b5cf6, #d946ef) border-box;
+  }
+  
+  .card-modern {
+    @apply bg-white rounded-2xl border border-slate-200/60 shadow-card transition-all duration-300;
+  }
+  
+  .card-modern:hover {
+    @apply shadow-card-hover border-slate-300/80 -translate-y-1;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 bg-accent text-white rounded-xl font-medium shadow-soft transition-all duration-300;
+  }
+  
+  .btn-primary:hover {
+    @apply bg-accent-dark shadow-glow -translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 bg-white border border-slate-200 rounded-xl font-medium transition-all duration-300;
+  }
+  
+  .btn-secondary:hover {
+    @apply border-accent text-accent -translate-y-0.5;
+  }
+  
+  .tag {
+    @apply px-3 py-1.5 text-xs font-medium rounded-full bg-slate-100 text-slate-700 border border-slate-200/60;
+  }
+  
+  .tag-accent {
+    @apply px-3 py-1.5 text-xs font-medium rounded-full bg-accent/10 text-accent border border-accent/20;
+  }
+}
+
 @page {
   size: A4;
-  /* No global top margin; bottom margin stays */
   margin: 0;
 }
 
-/* Screen preview helpers */
-body {
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-}
-
-/* Better PDF text rendering */
 * {
   -webkit-font-feature-settings: "kern" 1;
   font-feature-settings: "kern" 1;
@@ -26,6 +92,9 @@ body {
 @media print {
   .screen-only {
     display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .sheet {
     box-shadow: none !important;
@@ -34,10 +103,15 @@ body {
   html,
   body {
     width: 210mm;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+    background: white !important;
+    overflow: visible !important;
   }
   
-  /* Ensure text remains selectable */
   * {
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
@@ -50,13 +124,12 @@ body {
     font-variant-ligatures: none !important;
   }
   
-  /* Disable Google Fonts and force system fonts for PDF compatibility */
   @font-face {
     font-display: none;
   }
   
   * {
-    font-family: 'Times New Roman', Times, serif !important;
+    font-family: Arial, Helvetica, sans-serif !important;
   }
   
   .font-heading, h1, h2, h3, h4, h5, h6 {
@@ -68,47 +141,30 @@ body {
     font-family: Arial, Helvetica, sans-serif !important;
   }
   
-  /* Disable any web font loading */
   link[href*="fonts.googleapis.com"],
   link[href*="fonts.gstatic.com"] {
     display: none !important;
   }
-  /* Fix for sidebar border to be full height for print */
-  .print-bg-sidebar {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: 100vh;
-    background: white;
-    border-right: 1px solid rgb(212 212 212/1);
-    z-index: -1;
+  
+  
+  .rounded-lg, .rounded-xl, .rounded-2xl {
+    border-radius: 0 !important;
   }
-  /* Repeat vertical offset (top and bottom) on right column across printed pages */
-  .repeat-offset {
-    --repeat-offset: 8mm;
-    padding-top: var(--repeat-offset);
-    padding-bottom: var(--repeat-offset);
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-    /* neutralize the extra padding at the start and end */
-    margin-top: calc(var(--repeat-offset) * -1);
-    margin-bottom: calc(var(--repeat-offset) * -1);
+  
+  * {
+    overflow: visible !important;
   }
 }
 
-/* Utility for fine separators */
 .hairline {
   border-width: 1px;
 }
 
-/* Prevent items from splitting across pages */
 .avoid-break {
   break-inside: avoid;
   page-break-inside: avoid;
 }
 
-/* Optional class to force a page break when needed */
 .page-break {
   break-after: page;
   page-break-after: always;
