@@ -1,6 +1,6 @@
 export const profile = {
   name: "Wiktor Bechciński",
-  role: "Full Stack Developer",
+  role: "Full-stack Developer",
   email: "wiktor.bechcinski@gmail.com",
   phone: "+48 881 705 318",
   linkedin: "https://www.linkedin.com/in/wiktor-bechcinski/",
@@ -8,7 +8,7 @@ export const profile = {
   location: "Łódź / Warszawa, Poland",
   avatarUrl: "/avatar.png",
   summary:
-    "Full-stack engineer with front-end focus, delivering enterprise solutions for global brands including Procter & Gamble, Philip Morris International, and Frisco. Passionate about building performant, user-centric applications that bridge design and engineering to create real business impact.",
+    "Full-stack developer focused on React, React Native and TypeScript. Experience delivering enterprise web and mobile applications for Doppelmayr, Procter & Gamble and Philip Morris International, spanning IoT monitoring, offline-first workflows and reusable frontend libraries.",
 } as const;
 
 export const sidebarSections = [
@@ -20,25 +20,22 @@ export const sidebarSections = [
       "Next.js | Vite | Expo",
       "Node.js | Java (Spring)",
       "Salesforce",
-      "Redux | Zustand",
-      "Tailwind | styled-components",
+      "Redux | Zustand | TanStack Query",
+      "Tailwind CSS | styled-components",
       "REST | GraphQL | tRPC",
       "AWS | Azure | Docker",
-      "Jest | Jenkins | CI/CD",
+      "Playwright | Vitest | Jest | CI/CD",
       "Git | GitHub | Jira",
     ],
   },
   {
     title: "Soft skills",
     items: [
-      "Curious fast-learner",
-      "Creative problem solver",
-      "Deep focus on complex problems",
-      "Adaptable in dynamic environments",
-      "Strong pattern recognition",
+      "Analytical problem solving",
+      "Clear communication",
+      "Team collaboration",
+      "Adaptability",
       "Attention to detail",
-      "Collaborative team player",
-      "Clear communicator",
     ],
   },
   {
@@ -49,14 +46,26 @@ export const sidebarSections = [
 
 export const work = [
   {
-    period: "03.2025 - PRESENT",
+    period: "04.2026 - PRESENT",
+    company: "Superdevs",
+    role: "Frontend Developer (Contract)",
+    tech: "React, TypeScript, TanStack Query, Tailwind CSS, Chart.js, Vite, PWA, Azure AD B2C, Azure DevOps, Playwright, Vitest",
+    bullets: [
+      "Develop Doppelmayr's clair, an IoT monitoring progressive web app that helps ropeway operators oversee multiple installations through live sensor data, historical trends and operational alerts",
+      "Build and maintain a shared React dashboard SDK used across Doppelmayr applications, providing configurable drag-and-drop dashboards and reusable data visualization components",
+      "Deliver responsive, multilingual interfaces for desktop and mobile, integrating sensor APIs and Azure AD B2C authentication",
+      "Introduced automated end-to-end and unit testing with Playwright and Vitest, integrating regression checks into Azure DevOps CI/CD to catch issues before release",
+    ],
+  },
+  {
+    period: "03.2025 - 04.2026",
     company: "Accenture",
     role: "Product Engineering Senior Analyst",
     tech: "React, React Native, TypeScript, Redux, Java, Salesforce, AWS, Vite, Jest, Jenkins, CI/CD",
     bullets: [
-      "Procter & Gamble (01.2026-present): Developing a global offline-first Retail Execution App integrating Salesforce with React Native and Java for multi-market scalability. Implementing metadata-driven UI (Dynamic Design), performance optimizations and complex synchronization logic for reliable offline-to-online data flow",
-      "Philip Morris International (09-12.2025): Built React web application features for real-time IQOS device diagnostics and IoT monitoring. Developed comprehensive analytics dashboard utilizing Redux, Vite and AWS for optimal performance",
-      "Frisco (03-09.2025): Created AI-powered meal planning features with conversational chat interface for the e-commerce mobile app. Implemented smart filtering system and personalized recommendations engine using React Native and Expo",
+      "Procter & Gamble (01-04.2026): Developed an offline-first retail execution app for multiple markets using React Native and Java, integrated with Salesforce. Implemented metadata-driven interfaces, performance optimizations and offline-to-online synchronization",
+      "Philip Morris International (09-12.2025): Built React features for real-time IQOS device diagnostics and IoT monitoring, including an analytics dashboard using Redux, Vite and AWS",
+      "Frisco (03-09.2025): Developed AI-powered meal planning features for an e-commerce mobile app using React Native and Expo, including a conversational interface, product filtering and personalized recommendations",
     ],
   },
   {
@@ -65,18 +74,18 @@ export const work = [
     role: "Full Stack Developer",
     tech: "Angular, TypeScript, Java (Spring), Node.js, Docker, AWS, Less, CI/CD",
     bullets: [
-      "Developed and maintained high-traffic Angular application for major insurance companies",
-      "Identified and resolved production bugs ensuring application stability under real-time conditions",
+      "Developed and maintained an Angular application for major insurance companies",
+      "Diagnosed and resolved production issues to maintain application stability",
     ],
   },
   {
     period: "12.2022 - 06.2023",
     company: "Sinom",
     role: "Frontend Developer",
-    tech: "React, TypeScript, Next.js, Tailwind, GraphQL, Redux, tRPC, Tanstack, Material UI",
+    tech: "React, TypeScript, Next.js, Tailwind CSS, GraphQL, Redux, tRPC, TanStack, Material UI",
     bullets: [
-      "Developed web climate-smart planning tool for property renovation and maintenance",
-      "Refactored legacy components, optimizing performance and aligning with modern practices",
+      "Developed a web application for planning sustainable property renovation and maintenance",
+      "Refactored legacy components and optimized application performance",
     ],
   },
   {
@@ -85,8 +94,8 @@ export const work = [
     role: "Software Developer",
     tech: "JavaScript, Python, Jenkins, SQL, TestComplete, Postman, Jest, RabbitMQ",
     bullets: [
-      "Developed automated test scripts for software quality assurance",
-      "Analyzed and debugged software issues, maintained testing documentation",
+      "Developed automated test scripts to validate software functionality",
+      "Investigated software defects and maintained test documentation",
     ],
   },
 ];

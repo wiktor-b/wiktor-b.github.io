@@ -35,7 +35,7 @@ import { profile, sidebarSections, work } from "../config/config";
   <div class="py-8 screen-only"></div>
 
   <div class="mx-auto w-[210mm] min-h-[297mm] bg-white shadow-2xl print:shadow-none print:w-full print:max-w-none print:m-0 rounded-lg overflow-hidden screen-only:border screen-only:border-slate-200">
-    <div class="grid grid-cols-[220px_1fr] min-h-[297mm]">
+    <div class="grid grid-cols-[220px_1fr] print:grid-cols-[190px_1fr] min-h-[297mm]">
       <Sidebar
         sections={sidebarSections}
         avatarUrl={profile.avatarUrl}
@@ -46,19 +46,19 @@ import { profile, sidebarSections, work } from "../config/config";
         location={profile.location}
       />
       <div class="flex flex-col">
-        <header class="px-6 pt-5 pb-3 border-b border-slate-200 avoid-break">
+        <header class="px-6 pt-5 pb-3 print:px-4 print:pt-3 print:pb-1 border-b border-slate-200 avoid-break">
           <h1 class="font-heading text-2xl tracking-wide font-extrabold text-slate-900">
             {profile.name.toUpperCase()}
           </h1>
           <div class="text-accent font-semibold text-sm mt-1">
             {profile.role}
           </div>
-          <p class="text-xs text-slate-600 mt-2 leading-relaxed max-w-3xl">
+          <p class="text-xs text-slate-600 mt-2 leading-relaxed print:leading-snug max-w-3xl">
             {profile.summary}
           </p>
         </header>
 
-        <div class="p-6 pt-4 space-y-4 flex-1 flex flex-col">
+        <div class="p-6 pt-4 space-y-4 print:p-4 print:pt-3 print:pb-2 print:space-y-2 flex-1 flex flex-col">
           <Section title="Work Experience" icon="briefcase">
             {work.map((w) => <ExperienceItem {...w} />)}
           </Section>
@@ -71,7 +71,7 @@ import { profile, sidebarSections, work } from "../config/config";
             />
           </Section>
 
-          <div class="flex-1"></div>
+          <div class="flex-1 print:hidden"></div>
 
           <footer class="text-[7px] text-slate-400 leading-tight avoid-break pt-2 border-t border-slate-100">
             I agree to the processing of personal data provided in this document
